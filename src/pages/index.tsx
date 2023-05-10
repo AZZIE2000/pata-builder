@@ -6,10 +6,8 @@ import { api } from "~/utils/api";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { useEffect } from "@nebula.js/stardust";
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const user = useUser();
-
-  console.log(user);
+  const { data } = api.post.getAll.useQuery();
   return (
     <>
       <Head>
@@ -28,10 +26,19 @@ const Home: NextPage = () => {
             </SignInButton>
           </>
         ) : (
-          <button className="rounded-md bg-green-600 p-3 text-white">
+          <button className="rounded-md bg-red-600 p-3 text-white">
             Sign out
           </button>
         )}
+        <div className="flex w-full justify-center">
+          {data?.map((post, i) => {
+            return (
+              <div key={i} className="">
+                {post.content}
+              </div>
+            );
+          })}
+        </div>
       </main>
     </>
   );
