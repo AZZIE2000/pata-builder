@@ -13,7 +13,17 @@ const Home: NextPage = () => {
   const PostPortal = () => {
     const { user } = useUser();
     console.log(user?.id);
-    if (!user) return <div className=""></div>;
+    if (!user)
+      return (
+        <>
+          <SignIn path="/sign-in" routing="path" signUpUrl="/sign-up" />
+          <SignInButton mode="modal">
+            <button className="rounded-md bg-green-600 p-3 text-white">
+              Sign in
+            </button>
+          </SignInButton>
+        </>
+      );
     return (
       <>
         <div className="w-full border border-blue-400">
